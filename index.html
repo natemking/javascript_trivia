@@ -16,22 +16,30 @@
 <body>
     <header>
         <!-- Navbar -->
-        <nav class="navbar navbar-dark bg-dark " id="navbar">
+        <nav class="navbar navbar-dark bg-dark flex-column flex-md-row justify-content-center justify-content-md-between" id="navbar">
             <!-- High Score link to local storage -->
-            <a class="navbar-brand ml-lg-5" href="#">
+            <a class="navbar-brand ml-lg-5 mr-0" href="#">
               View High Scores
             </a>
             <!-- JS Logo and title -->
             <section>
-                <img id="js-logo" src="./assets/images/js_logo.png" width="30" height="30"  alt="JavaScript Logo" loading="lazy" />
-                <h1 id="title" class="navbar-brand p-0 m-0">JavaScript Trivia</h1>
+                <img id="js-logo" src="./assets/images/js_logo.png" width="30" height="30"  alt="JavaScript Logo" />
+                <h1 id="title" class="navbar-brand p-0 m-0">
+                    JavaScript Trivia
+                </h1>
             </section>
             <!-- Timer -->
-            <h1 class="navbar-brand mr-lg-5 mb-0">Timer: 0</h1>
+            <h1 class="navbar-brand mr-lg-5 mb-0">
+                Timer: 0
+            </h1>
           </nav>
     </header>
 
-    <main></main>
+    <!-- Container for the questions -->
+    <main class="container-sm text-center pt-3 pt-md-5">
+        <h2 style="border: black solid">TRIVIA TIME</h2>
+        <p>Test your JavaScript skills. Answer all the multiple choice questions within the given time. Wrong answers will hurt your score/time. </p>
+    </main>
 
 
     <!-- Javascript for trivia functionality -->

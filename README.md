@@ -15,3 +15,5 @@
 ## Credits
 
 <!-- JS Logo - https://www.vhv.rs/somore/javascript-logo -->
+
+<!-- better responsive typograpgy https://css-tricks.com/fun-viewport-units/ -->
