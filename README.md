@@ -7,8 +7,11 @@
 ---
 ### Scope of Work
 ### HTML and CSS
+<!-- For simplicity and efficancy, BootStrap was choosen for the design elements.  -->
 ### JavaScript Functionality
 ---
 ## Screenshots
 ---
 ## Credits
+
+<!-- JS Logo - https://www.vhv.rs/somore/javascript-logo -->
