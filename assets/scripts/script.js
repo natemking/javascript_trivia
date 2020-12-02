@@ -1,4 +1,6 @@
 const timerEl = document.querySelector('#timer');
+
+const scoreTimeEl = document.querySelector('#score-time')
 const mainEl = document.querySelectorAll('main');
 const rulesEl = document.querySelector('#rules');
 const questionEl = document.querySelector('#question');
@@ -16,25 +18,29 @@ let countdown = '60'.padStart(2, '0');
 
 // Timer function
 let startTime = () => {
-let timer = setInterval(function(){
-    countdown--;
-    timerEl.textContent = `Timer: ${countdown}`;
+    let timer = setInterval(function(){
+        countdown--;
+        timerEl.textContent = `Timer: ${countdown}`;
 
-    if (countdown === 0){
-        clearInterval(timer);
-    }
-}, 1000);
+        if (countdown === 0){
+            clearInterval(timer);
+        }
+    }, 1000);
 }
 
+//Make score and timer visible
+let showScoreTime = () =>{
+    scoreTimeEl.setAttribute('style', 'visibility: visible');
+}
 
-//Show all answers
+//Show all answers visible
 let showAnswers = (arr) => {
     arr.forEach((eL) => {
         eL.setAttribute('style', 'visibility: visible');
     });
 }
 
-//Hide all answers
+//Hide all answers visible
 let hideAnswers = (arr) => {
     arr.forEach((eL) => {
         eL.setAttribute('style', 'visibility: hidden');
@@ -49,6 +55,7 @@ let userChoice = (right, wrong, nextCard) => {
             correctAnswer();
             setTimeout(nextCard, 700);
             score += 10;
+
         }else if(event.target.matches(wrong)){
             wrongAnswer();
             setTimeout(nextCard, 700);
@@ -117,6 +124,7 @@ let card2 = () => {
 // event listeners to start the game
 answersEl.addEventListener('click', function (event) {
     if (event.target.matches('#a')){
+    showScoreTime();
     startTime();
     card1();
     }
