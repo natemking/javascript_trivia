@@ -18,19 +18,19 @@
         <!-- Navbar -->
         <nav class="navbar navbar-dark bg-dark flex-column flex-md-row justify-content-center justify-content-md-between" id="navbar">
             <!-- High Score link to local storage -->
-            <a class="navbar-brand ml-lg-5 mr-0 border" href="#">
+            <a class="navbar-brand ml-lg-5 mr-0" href="#">
               View High Scores
             </a>
             <!-- JS Logo and title -->
-            <section id="js-logo-title" class="mr-lg-5 pr-lg-5">
+            <section id="js-logo-title" class=" ml-lg-5 pl-lg-3">
                 <img id="js-logo" src="./assets/images/js_logo.png" width="30" height="30"  alt="JavaScript Logo" />
-                <h1 id="title" class="navbar-brand p-0 m-0 border">
+                <h1 id="title" class="navbar-brand p-0 m-0">
                     JavaScript Trivia
                 </h1>
             </section>
             <!-- Score and timer-->
-            <section id="score-time">
-                <h1 id="score" class="navbar-brand mr-lg-5 mb-0 ">
+            <section id="score-time" class="hidden">
+                <h1 id="score" class="navbar-brand mb-0 ">
                     Score: 0
                 </h1>
                 <h1 id="timer" class="navbar-brand mr-lg-5 mb-0 ">
@@ -49,13 +49,13 @@
                 <button id="a" type="button" class="btn btn-outline-warning btn-lg btn-block mx-auto my-4">Start</button>
             </li>
             <li>
-                <button id="b" type="button" class="btn btn-outline-warning btn-lg btn-block mx-auto my-4"></button>
+                <button id="b" type="button" class="btn btn-outline-warning btn-lg btn-block mx-auto my-4 hidden"></button>
             </li>
             <li>
-                <button id="c" type="button" class="btn btn-outline-warning btn-lg btn-block mx-auto my-4"></button>
+                <button id="c" type="button" class="btn btn-outline-warning btn-lg btn-block mx-auto my-4 hidden"></button>
             </li>
             <li>
-                <button id="d" type="button" class="btn btn-outline-warning btn-lg btn-block mx-auto my-4"></button>
+                <button id="d" type="button" class="btn btn-outline-warning btn-lg btn-block mx-auto my-4 hidden"></button>
             </li>
         </ul>
     </main>

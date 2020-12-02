@@ -8,35 +8,37 @@ const bEl = document.querySelector('#b');
 const cEl = document.querySelector('#c');
 const dEl = document.querySelector('#d');
 
+//Array for forEach loop that changes elements visibility
+const allAnswers = [aEl, bEl, cEl, dEl];
 let score = 0;
 let countdown = '60'.padStart(2, '0');
+
+
 // Timer function
 let startTime = () => {
-    
+let timer = setInterval(function(){
+    countdown--;
+    timerEl.textContent = `Timer: ${countdown}`;
 
-    let timer = setInterval(function(){
-        countdown--;
-        timerEl.textContent = `Timer: ${countdown}`;
-
-        if (countdown === 0){
-            clearInterval(timer);
-        }
-    }, 1000);
+    if (countdown === 0){
+        clearInterval(timer);
+    }
+}, 1000);
 }
 
-// Show all answers
-let showAnswers = () => {
-    aEl.setAttribute('style', 'visibility: visible');
-    bEl.setAttribute('style', 'visibility: visible');
-    cEl.setAttribute('style', 'visibility: visible');
-    dEl.setAttribute('style', 'visibility: visible');
+
+//Show all answers
+let showAnswers = (arr) => {
+    arr.forEach((eL) => {
+        eL.setAttribute('style', 'visibility: visible');
+    });
 }
-// Hide all answers
-let hideAnswers = () => {
-    aEl.setAttribute('style', 'visibility: hidden');
-    bEl.setAttribute('style', 'visibility: hidden');
-    cEl.setAttribute('style', 'visibility: hidden');
-    dEl.setAttribute('style', 'visibility: hidden');
+
+//Hide all answers
+let hideAnswers = (arr) => {
+    arr.forEach((eL) => {
+        eL.setAttribute('style', 'visibility: hidden');
+    });
 }
 
 //Checks if users choice is right and goes to the next card
@@ -58,13 +60,13 @@ let userChoice = (right, wrong, nextCard) => {
 
 //If correct answer
 let correctAnswer = () => {
-    hideAnswers();
+    hideAnswers(allAnswers);
     questionEl.textContent = 'Correct!';
 }
 
 //If wrong answer
 let wrongAnswer = () => {
-    hideAnswers();
+    hideAnswers(allAnswers);
     questionEl.textContent = 'Wrong!';
 }
 
@@ -79,7 +81,7 @@ let card1 = () => {
     bEl.textContent = 'B. variety';
     cEl.textContent = 'C. variable';
     dEl.textContent = 'D. none of the above'
-    showAnswers();
+    showAnswers(allAnswers);
     //Correct answer is C
     userChoice('#c', '#a, #b, #d', card2);
     
@@ -93,7 +95,7 @@ let card2 = () => {
     bEl.textContent = 'B. do...while';
     cEl.textContent = 'C. for...in';
     dEl.textContent = 'D. all of the above'
-    showAnswers();
+    showAnswers(allAnswers);
     
     if (dEl.addEventListener('click', function(){
         correctAnswer();
