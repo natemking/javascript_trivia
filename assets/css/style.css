@@ -23,8 +23,11 @@ html, body {
     font-size: 1.4em;
 }
 
-main {
-   
+#timer {
+    font-family: monospace;
+}
+
+.jumbotron{
     background-color:rgba(218, 165, 32, .8);
     border-radius: 10px;
 }
@@ -37,6 +40,20 @@ main {
     font-family: 'Racing Sans One', cursive;
     font-size: calc(16px + 1vw);
 }
+
+.btn {
+    background-color: rgb(13, 18, 56);
+    color: rgb(255, 255, 255);
+}
+
+.btn-block {
+    width: 50%;
+}
+
+
+#b, #c, #d {
+    visibility: hidden;
+}
 /*** Media Queries  ***/
 /**********************/
 
@@ -44,6 +61,13 @@ main {
 @media (min-width: 768px){
     main {
         width: 60% !important;
+    }
+}
+
+/* Changes button width on mobile */
+@media (max-width: 500px){
+    .btn-block {
+        width: 80%;
     }
 }
 
