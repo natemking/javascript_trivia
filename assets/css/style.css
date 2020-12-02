@@ -41,6 +41,11 @@ html, body {
     font-size: calc(16px + 1vw);
 }
 
+code {
+    color: rgb(255, 230, 249);
+    font-weight: 600;
+}
+
 .btn {
     background-color: rgb(13, 18, 56);
     color: rgb(255, 255, 255);
