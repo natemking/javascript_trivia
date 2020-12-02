@@ -1,5 +1,5 @@
 const timerEl = document.querySelector('#timer');
-
+const scoreEl = document.querySelector('#score')
 const scoreTimeEl = document.querySelector('#score-time')
 const mainEl = document.querySelectorAll('main');
 const rulesEl = document.querySelector('#rules');
@@ -55,7 +55,7 @@ let userChoice = (right, wrong, nextCard) => {
             correctAnswer();
             setTimeout(nextCard, 700);
             score += 10;
-
+            scoreEl.textContent = `Score: ${score}`;
         }else if(event.target.matches(wrong)){
             wrongAnswer();
             setTimeout(nextCard, 700);
@@ -83,7 +83,7 @@ let card1 = () => {
     questionEl.textContent = 'What does variable stand for?';
     // Clear out rules
     rulesEl.textContent = ' ';
-    //Change answer choices and 
+    //Change answer choices
     aEl.textContent = 'A. vary';
     bEl.textContent = 'B. variety';
     cEl.textContent = 'C. variable';
