@@ -2,16 +2,17 @@ const timerEl = document.querySelector('#timer');
 const mainEl = document.querySelectorAll('main');
 const rulesEl = document.querySelector('#rules');
 const questionEl = document.querySelector('#question');
-const answersEl = document.querySelector('answers')
+const answersEl = document.querySelector('#answers')
 const aEl = document.querySelector('#a'); //Also the start button
 const bEl = document.querySelector('#b');
 const cEl = document.querySelector('#c');
 const dEl = document.querySelector('#d');
 
-
+let score = 0;
+let countdown = '60'.padStart(2, '0');
 // Timer function
 let startTime = () => {
-    let countdown = '60'.padStart(2, '0');
+    
 
     let timer = setInterval(function(){
         countdown--;
@@ -38,6 +39,23 @@ let hideAnswers = () => {
     dEl.setAttribute('style', 'visibility: hidden');
 }
 
+//Checks if users choice is right and goes to the next card
+let userChoice = (right, wrong, nextCard) => {
+    answersEl.addEventListener('click', function (event){
+        event.preventDefault();
+        if(event.target.matches(right)){
+            correctAnswer();
+            setTimeout(nextCard, 700);
+            score += 10;
+        }else if(event.target.matches(wrong)){
+            wrongAnswer();
+            setTimeout(nextCard, 700);
+            // score -= 10;
+            return countdown -= 10;
+        } 
+    })
+}
+
 //If correct answer
 let correctAnswer = () => {
     hideAnswers();
@@ -56,27 +74,15 @@ let card1 = () => {
     questionEl.textContent = 'What does variable stand for?';
     // Clear out rules
     rulesEl.textContent = ' ';
+    //Change answer choices and 
     aEl.textContent = 'A. vary';
     bEl.textContent = 'B. variety';
     cEl.textContent = 'C. variable';
     dEl.textContent = 'D. none of the above'
     showAnswers();
-
-
-    if (cEl.addEventListener('click', function(){
-        correctAnswer();
-        setTimeout(() => { card2() }, 700);
-    })) {} else if (aEl.addEventListener('click', function(){
-        wrongAnswer();
-        setTimeout(() => { card2() }, 700);
-    })) {} else if (bEl.addEventListener('click', function(){
-        wrongAnswer();
-        setTimeout(() => { card2() }, 700);
-    })) {} else if (dEl.addEventListener('click', function(){
-        wrongAnswer();
-        setTimeout(() => { card2() }, 700);
-    })) {} 
-
+    //Correct answer is C
+    userChoice('#c', '#a, #b, #d', card2);
+    
 }
 
 //Question card 2
@@ -106,8 +112,10 @@ let card2 = () => {
 
 
 
-// event listeners
-aEl.addEventListener('click', function () {
+// event listeners to start the game
+answersEl.addEventListener('click', function (event) {
+    if (event.target.matches('#a')){
     startTime();
     card1();
+    }
 });
