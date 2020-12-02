@@ -19,3 +19,11 @@
 <!-- better responsive typograpgy https://css-tricks.com/fun-viewport-units/ -->
 
 <!-- security differences between innerHTML and textContent https://stackoverflow.com/questions/48517469/security-innerhtml-vs-textcontent-with-api -->
+
+<!-- pad time with leading 0's https://stackoverflow.com/questions/8089875/show-a-leading-zero-if-a-number-is-less-than-10
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart 
+
+https://stackoverflow.com/questions/52118323/show-countdown-timer-in-hhmmss-instead-of-hms-in-javascript?noredirect=1&lq=1
+
+https://scotch.io/tutorials/formattings-string-with-javascript-padstart-and-padend-->

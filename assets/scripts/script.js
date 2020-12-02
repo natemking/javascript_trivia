@@ -9,8 +9,6 @@ const cEl = document.querySelector('#c');
 const dEl = document.querySelector('#d');
 
 
-
-
 // Timer function
 let startTime = () => {
     let countdown = '60'.padStart(2, '0');
@@ -40,16 +38,19 @@ let hideAnswers = () => {
     dEl.setAttribute('style', 'visibility: hidden');
 }
 
+//If correct answer
 let correctAnswer = () => {
     hideAnswers();
     questionEl.textContent = 'Correct!';
 }
 
+//If wrong answer
 let wrongAnswer = () => {
     hideAnswers();
     questionEl.textContent = 'Wrong!';
 }
 
+//Question card 1
 let card1 = () => {
     // Ask 1st question
     questionEl.textContent = 'What does variable stand for?';
@@ -61,14 +62,24 @@ let card1 = () => {
     dEl.textContent = 'D. none of the above'
     showAnswers();
 
-  
-    cEl.addEventListener('click', function (){
+
+    if (cEl.addEventListener('click', function(){
         correctAnswer();
-        setTimeout(() => { card2() }, 600);
-    });
-    
+        setTimeout(() => { card2() }, 700);
+    })) {} else if (aEl.addEventListener('click', function(){
+        wrongAnswer();
+        setTimeout(() => { card2() }, 700);
+    })) {} else if (bEl.addEventListener('click', function(){
+        wrongAnswer();
+        setTimeout(() => { card2() }, 700);
+    })) {} else if (dEl.addEventListener('click', function(){
+        wrongAnswer();
+        setTimeout(() => { card2() }, 700);
+    })) {} 
+
 }
 
+//Question card 2
 let card2 = () => {
     // Ask 1st question
     questionEl.textContent = 'Which of the following are loops?';
@@ -77,11 +88,20 @@ let card2 = () => {
     cEl.textContent = 'C. for...in';
     dEl.textContent = 'D. all of the above'
     showAnswers();
-
-  
-    dEl.addEventListener('click', function (){
-        correctAnswer()});
     
+    if (dEl.addEventListener('click', function(){
+        correctAnswer();
+        setTimeout(() => { card1() }, 700);
+    })) {} else if (aEl.addEventListener('click', function(){
+        wrongAnswer();
+        setTimeout(() => { card1() }, 700);
+    })) {} else if (bEl.addEventListener('click', function(){
+        wrongAnswer();
+        setTimeout(() => { card1() }, 700);
+    })) {} else if (cEl.addEventListener('click', function(){
+        wrongAnswer();
+        setTimeout(() => { card1() }, 700);
+    })) {} 
 }
 
 
@@ -91,4 +111,3 @@ aEl.addEventListener('click', function () {
     startTime();
     card1();
 });
-
