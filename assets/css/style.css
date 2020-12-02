@@ -2,8 +2,13 @@
 
 /* font-family: 'Racing Sans One', cursive;
 font-family: 'Raleway', sans-serif; */
-body {
+
+html, body {
     font-family: 'Raleway', sans-serif;
+    background: url("../../assets/images/oriental-tiles.png");
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 #navbar {
     font-size: 1.5em;
@@ -18,9 +23,14 @@ body {
     font-size: 1.4em;
 }
 
+main {
+   
+    background-color:rgba(218, 165, 32, .8);
+    border-radius: 10px;
+}
 #rules {
     font-size: calc(16px + 1vw);
-    line-height: 0%;
+    line-height: 120%;
 }
 
 #question {
