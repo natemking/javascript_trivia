@@ -22,7 +22,7 @@
               View High Scores
             </a>
             <!-- JS Logo and title -->
-            <section>
+            <section id="js-logo-title" class="mr-lg-5 pr-lg-5">
                 <img id="js-logo" src="./assets/images/js_logo.png" width="30" height="30"  alt="JavaScript Logo" />
                 <h1 id="title" class="navbar-brand p-0 m-0">
                     JavaScript Trivia
@@ -37,8 +37,22 @@
 
     <!-- Container for the questions -->
     <main class="container-sm text-center pt-3 pt-md-5">
-        <h2 style="border: black solid">TRIVIA TIME</h2>
-        <p>Test your JavaScript skills. Answer all the multiple choice questions within the given time. Wrong answers will hurt your score/time. </p>
+        <h2 id="question">TRIVIA TIME</h2>
+        <p id="rules">Test your JavaScript skills. Answer all the multiple choice questions within the given time. Wrong answers will hurt your score/time. </p>
+        <ul id="answers" class="list-unstyled text-lg-left">
+            <li id="a">
+                <button type="button" class="btn btn-primary btn-lg m-1">Large button</button>
+            </li>
+            <li id="b">
+                <button type="button" class="btn btn-primary btn-lg m-1">Large button</button>
+            </li>
+            <li id="c">
+                <button type="button" class="btn btn-primary btn-lg m-1">Large button</button>
+            </li>
+            <li id="d">
+                <button type="button" class="btn btn-primary btn-lg m-1">Large button</button>
+            </li>
+        </ul>
     </main>
 
 

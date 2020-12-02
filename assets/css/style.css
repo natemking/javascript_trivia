@@ -9,6 +9,7 @@ body {
     font-size: 1.5em;
 }
 
+
 #js-logo {
     vertical-align: -3px;
 }
@@ -17,11 +18,15 @@ body {
     font-size: 1.4em;
 }
 
-main p {
+#rules {
     font-size: calc(16px + 1vw);
+    line-height: 0%;
 }
 
-
+#question {
+    font-family: 'Racing Sans One', cursive;
+    font-size: calc(16px + 1vw);
+}
 /*** Media Queries  ***/
 /**********************/
 
@@ -32,13 +37,7 @@ main p {
     }
 }
 
-
-/* @media (max-width: 500px){
-    .navbar {
-        flex-direction: column;
-    }
-} */
-
+/* JS logo in navbar disappears on mobile */
 @media (max-width: 300px){
     #js-logo {
         display: none;
