@@ -17,3 +17,5 @@
 <!-- JS Logo - https://www.vhv.rs/somore/javascript-logo -->
 
 <!-- better responsive typograpgy https://css-tricks.com/fun-viewport-units/ -->
+
+<!-- security differences between innerHTML and textContent https://stackoverflow.com/questions/48517469/security-innerhtml-vs-textcontent-with-api -->

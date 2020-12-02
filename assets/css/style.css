@@ -44,6 +44,11 @@ html, body {
 .btn {
     background-color: rgb(13, 18, 56);
     color: rgb(255, 255, 255);
+    border: none;
+}
+
+.btn-outline-warning.focus, .btn-outline-warning:focus {
+    box-shadow: none;
 }
 
 .btn-block {
