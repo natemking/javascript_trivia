@@ -64,6 +64,11 @@ code {
     visibility: hidden;
 }
 
+#high-scores:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 
 /*** Media Queries  ***/
 /**********************/
@@ -79,9 +84,6 @@ code {
 @media (max-width: 500px){
     .btn-block {
         width: 80%;
-    }
-    #score-time {
-        display: none;
     }
 }
 

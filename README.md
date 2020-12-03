@@ -27,3 +27,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 https://stackoverflow.com/questions/52118323/show-countdown-timer-in-hhmmss-instead-of-hms-in-javascript?noredirect=1&lq=1
 
 https://scotch.io/tutorials/formattings-string-with-javascript-padstart-and-padend-->
+
+<!-- getting multiple vlaues to local storage
+https://stackoverflow.com/questions/40843773/localstorage-keeps-overwriting-my-data -->

@@ -9,6 +9,8 @@ const aEl = document.querySelector('#a'); //Also the start button
 const bEl = document.querySelector('#b');
 const cEl = document.querySelector('#c');
 const dEl = document.querySelector('#d');
+const formEl = document.querySelector('#game-over-form');
+
 
 //Array for forEach loop that changes elements visibility
 const allAnswers = [aEl, bEl, cEl, dEl];
@@ -121,7 +123,7 @@ let card2 = () => {
     dEl.textContent = 'D. all of the above'
     showAnswers(allAnswers);
     //Correct answer is D
-    userChoice('#d', '#a, #b, #c', card3)
+    userChoice('#d', '#a, #b, #c', card3);
 }
 
 //Question card 3
@@ -134,7 +136,7 @@ let card3 = () => {
     dEl.textContent = 'D. Quotes';
     showAnswers(allAnswers);
     //Correct answer is B
-    userChoice('#b', '#a, #c, #d', card4)
+    userChoice('#b', '#a, #c, #d', card4);
 }
 
 //Question card 4
@@ -147,7 +149,7 @@ let card4 = () => {
     dEl.textContent = 'D. none of the above';
     showAnswers(allAnswers);
     //Correct answer is A
-    userChoice('#a', '#b, #c, #d', card5)
+    userChoice('#a', '#b, #c, #d', card5);
 }
 
 //Question card 5
@@ -160,7 +162,7 @@ let card5 = () => {
     dEl.textContent = 'D. all of the above';
     showAnswers(allAnswers);
     //Correct answer is A
-    userChoice('#d', '#a, #b, #c', gameOver)
+    userChoice('#d', '#a, #b, #c', gameOver);
 }
 
 //Game over screen
@@ -172,13 +174,15 @@ let gameOver = () => {
     //creates new elements for game over page
     let finalScore = document.createElement("h1");
     let form = document.createElement('form'); 
-    let div = document.createElement('div')
+    let div = document.createElement('div');
     let input = document.createElement('input');
     let submit = document.createElement('button');
+    let viewHighScores = document.createElement('p');
 
     //adds text to those elements
     finalScore.textContent = `Your final score: ${score}`;
-    submit.textContent = 'Submit your score'
+    submit.textContent = 'Submit your score';
+    viewHighScores.textContent = 'View High Scores';
     
     //appends those elements to the DOM
     document.querySelector('main').appendChild(finalScore);
@@ -186,29 +190,92 @@ let gameOver = () => {
     form.appendChild(div);
     div.appendChild(input);
     form.appendChild(submit);
+    document.querySelector('main').appendChild(viewHighScores);
 
     //Sets the attributes of those elements
-    finalScore.setAttribute('style', 'color: white; font-weight: 700;')
-    finalScore.setAttribute('class', 'my-3')
-    div.setAttribute('class', 'form-group')
-    input.setAttribute('type', 'text')
-    input.setAttribute('class', 'form-control')
-    input.setAttribute('id', 'initials')
-    input.setAttribute('placeholder', 'Enter Initials')
-    input.setAttribute('style', 'width: 50%; margin: 0 auto;')
-    submit.setAttribute('id', 'submit-init')
-    submit.setAttribute('type', 'button')
-    submit.setAttribute('class', 'btn btn-outline-warning btn-lg btn-block mx-auto')
-    submit.setAttribute('style', 'min-width: 50%')
+    finalScore.setAttribute('style', 'color: white; font-weight: 700;');
+    finalScore.setAttribute('class', 'my-3');
+    form.setAttribute ('id', 'game-over-form');
+    div.setAttribute('class', 'form-group');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'user-initials');
+    input.setAttribute('class', 'form-control');
+    input.setAttribute('id', 'initials');
+    input.setAttribute('placeholder', 'Enter Initials');
+    input.setAttribute('style', 'width: 50%; margin: 0 auto;');
+    submit.setAttribute('id', 'submit-init');
+    submit.setAttribute('type', 'button');
+    submit.setAttribute('class', 'btn btn-outline-warning btn-lg btn-block mx-auto');
+    submit.setAttribute('style', 'min-width: 50%');
+    viewHighScores.setAttribute('class', 'mt-3');
+    viewHighScores.setAttribute('id', 'high-scores');
+    viewHighScores.setAttribute('style', 'color: rgb(255, 255, 255)');
+
+   //Query Select for new text input and submit button
+    // let userInits = document.querySelector('#initials');
+    let submitInit = document.querySelector('#submit-init');
+    
+    //Event listener that submits user initials and scores to local storage
+    submitInit.addEventListener('click', function (event){
+        event.preventDefault();
+        //Object to store data
+        // var scoreStore = { 
+        //     initials: [],
+        //     score: []
+        // };
+
+        let storedScore = [JSON.parse(localStorage.getItem('user-scores'))];
+        
+        if(storedScore == null) storedScore = [];
+
+        let userInits = document.querySelector('#initials').value;
+        let scoreStore = {
+            "initials": userInits,
+            "score": score
+        };
+        localStorage.setItem('user-scores', JSON.stringify(scoreStore));
+        storedScore.push(scoreStore);
+        localStorage.setItem('all-scores', JSON.stringify(storedScore));
+
+        document.querySelector('#initials').value = " ";
+        alert("Score recorded!");
+        // console.log(localStorage)
+        
+
+        //Convert object to string
+        // scoreStore.initials.push(userInits.value.trim());
+        // scoreStore.score.push(score);
+        
+        //Push to local storage
+        // console.log(scoreStore)
+        // localStorage.setItem('user-scores', JSON.stringify(scoreStore));
+    })
+    
 }
+
+// initials: userInits.value.trim(),
+//             score: score
+    
+
+//After clicking view high scores
+// let hideGameOver = () => {
+    
+//     const highScoresEl = document.querySelector('p');
+//     highScoresEl.addEventListener('click', hideGameOver);
+//     questionEl.setAttribute('style', 'display: none')
+//     formEl.setAttribute('style', 'display: none')
+
+
+// }
+
 
 // event listeners to start the game
 answersEl.addEventListener('click', function (event) {
     if (event.target.matches('#a')){
-    gameOver();
-    // showScoreTime();
-    // startTime();
-    // card1();
+    // gameOver();
+    showScoreTime();
+    startTime();
+    card1();
     
     }
 });
