@@ -17,14 +17,18 @@ const allAnswers = [aEl, bEl, cEl, dEl];
 //Storage Variable for score
 var score = 0;
 //Variable for countdown
-let countdown = '60'.padStart(2, '0');
+let countdown = 60;
 
 
 // Timer function
 let startTime = () => {
     let timer = setInterval(function(){
         countdown--;
-        timerEl.textContent = `Timer: ${countdown}`;
+        if (countdown < 10){
+            timerEl.textContent = `Timer: 0${countdown}`;
+        }else{
+            timerEl.textContent = `Timer: ${countdown}`;
+        }
 
         if (countdown === 0){
             clearInterval(timer);
@@ -65,8 +69,9 @@ let removeAnswers = (arr) => {
 
 //Checks if users choice is right and goes to the next card
 let userChoice = (right, wrong, nextCard) => {
+    
     answersEl.addEventListener('click', function (event){
-        console.log(event)
+        // console.log(event)
         event.stopPropagation;
         // If the chosen answer is correct show Correct on screen and add 10 points 
         if(event.target.matches(right)){
@@ -81,12 +86,25 @@ let userChoice = (right, wrong, nextCard) => {
     })
 }
 
+// answersEl.removeEventListener('click', function(event){
+//     event.stopPropagation;
+// });
+
+let writeScore = () => {
+    if (score === 0){
+        scoreEl.textContent = `Score: 0${score}`;
+    }else{
+
+        scoreEl.textContent = `Score: ${score}`;
+    }
+}
+
 //If correct answer
 let correctAnswer = () => {
     hideAnswers(allAnswers);
     questionEl.textContent = 'Correct!';
     score += 10;
-    scoreEl.textContent = `Score: ${score}`;
+    writeScore();
 }
 
 
@@ -95,8 +113,8 @@ let wrongAnswer = () => {
     hideAnswers(allAnswers);
     questionEl.textContent = 'Wrong!';
     score -= 10;
-    scoreEl.textContent = `Score: ${score}`;
     countdown -= 10;
+    writeScore();
 }
 
 //Question card 1
@@ -222,10 +240,11 @@ let gameOver = () => {
         event.preventDefault();
         let userInits = document.querySelector('#initials').value;
 
-
+        //If the user submits without initials they are alerted to do so
         if(userInits === ""){
             alert('Please enter you initials')
             return;
+        //If the user adds initials they are alerted that the score is recorded and layout changes      
         }else{
             alert("Score recorded!");
             form.setAttribute('class', 'hidden');
@@ -234,6 +253,7 @@ let gameOver = () => {
             highScores();
         };
 
+        //local storage addtion of
         let storedScore = [JSON.parse(localStorage.getItem('all-scores'))];
         if(storedScore === null) {storedScore = [];};
 
@@ -247,11 +267,7 @@ let gameOver = () => {
 
         document.querySelector('#initials').value = " ";
         
-    };
-}
-
-let highScores = () => {
-    
+    });
 }
 
 // event listeners to start the game

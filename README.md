@@ -32,3 +32,9 @@ https://scotch.io/tutorials/formattings-string-with-javascript-padstart-and-pade
 https://stackoverflow.com/questions/40843773/localstorage-keeps-overwriting-my-data 
 
 https://stackoverflow.com/questions/19635077/adding-objects-to-array-in-localstorage-->
+
+<!-- cleaner set timeout code than ive used in the past
+https://www.sitepoint.com/javascript-settimeout-function-examples/ -->
+
+<!-- using a foreach
+https://dmitripavlutin.com/foreach-iterate-array-javascript/ -->
