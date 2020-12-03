@@ -24,14 +24,16 @@ let countdown = 60;
 let startTime = () => {
     let timer = setInterval(function(){
         countdown--;
+        //Adds visual of timer to the dom. 
         if (countdown < 10){
             timerEl.textContent = `Timer: 0${countdown}`;
         }else{
             timerEl.textContent = `Timer: ${countdown}`;
         }
-
+        //Stops timer at 0
         if (countdown === 0){
             clearInterval(timer);
+            gameOver();
         }
     }, 1000);
 }
