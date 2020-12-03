@@ -64,6 +64,10 @@ code {
     visibility: hidden;
 }
 
+.visible {
+    visibility: visible;
+}
+
 #high-scores:hover {
     cursor: pointer;
     text-decoration: underline;

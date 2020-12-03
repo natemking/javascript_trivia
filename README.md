@@ -29,4 +29,6 @@ https://stackoverflow.com/questions/52118323/show-countdown-timer-in-hhmmss-inst
 https://scotch.io/tutorials/formattings-string-with-javascript-padstart-and-padend-->
 
 <!-- getting multiple vlaues to local storage
-https://stackoverflow.com/questions/40843773/localstorage-keeps-overwriting-my-data -->
+https://stackoverflow.com/questions/40843773/localstorage-keeps-overwriting-my-data 
+
+https://stackoverflow.com/questions/19635077/adding-objects-to-array-in-localstorage-->

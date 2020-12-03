@@ -9,7 +9,7 @@ const aEl = document.querySelector('#a'); //Also the start button
 const bEl = document.querySelector('#b');
 const cEl = document.querySelector('#c');
 const dEl = document.querySelector('#d');
-const formEl = document.querySelector('#game-over-form');
+
 
 
 //Array for forEach loop that changes elements visibility
@@ -62,15 +62,17 @@ let removeAnswers = (arr) => {
     });
 }
 
+
 //Checks if users choice is right and goes to the next card
 let userChoice = (right, wrong, nextCard) => {
     answersEl.addEventListener('click', function (event){
+        console.log(event)
         event.stopPropagation;
         // If the chosen answer is correct show Correct on screen and add 10 points 
         if(event.target.matches(right)){
             correctAnswer();
             setTimeout(nextCard, 700);
-            console.log(score)
+            // console.log(score)
         // If the chosen answer is wrong show Wrong on screen remove 10 points & 10 seconds
         }else if(event.target.matches(wrong)){
             wrongAnswer();
@@ -83,8 +85,8 @@ let userChoice = (right, wrong, nextCard) => {
 let correctAnswer = () => {
     hideAnswers(allAnswers);
     questionEl.textContent = 'Correct!';
-    score +=10;
-    scoreEl.textContent = `Score: ${score}`;  
+    score += 10;
+    scoreEl.textContent = `Score: ${score}`;
 }
 
 
@@ -92,9 +94,9 @@ let correctAnswer = () => {
 let wrongAnswer = () => {
     hideAnswers(allAnswers);
     questionEl.textContent = 'Wrong!';
-    // score -= 10;
-    // scoreEl.textContent = `Score: ${score}`;
-    // countdown -= 10;
+    score -= 10;
+    scoreEl.textContent = `Score: ${score}`;
+    countdown -= 10;
 }
 
 //Question card 1
@@ -177,12 +179,12 @@ let gameOver = () => {
     let div = document.createElement('div');
     let input = document.createElement('input');
     let submit = document.createElement('button');
-    let viewHighScores = document.createElement('p');
+    let playAgain = document.createElement('p');
 
     //adds text to those elements
     finalScore.textContent = `Your final score: ${score}`;
     submit.textContent = 'Submit your score';
-    viewHighScores.textContent = 'View High Scores';
+    playAgain.textContent = 'Play Again';
     
     //appends those elements to the DOM
     document.querySelector('main').appendChild(finalScore);
@@ -190,7 +192,7 @@ let gameOver = () => {
     form.appendChild(div);
     div.appendChild(input);
     form.appendChild(submit);
-    document.querySelector('main').appendChild(viewHighScores);
+    document.querySelector('main').appendChild(playAgain);
 
     //Sets the attributes of those elements
     finalScore.setAttribute('style', 'color: white; font-weight: 700;');
@@ -207,9 +209,9 @@ let gameOver = () => {
     submit.setAttribute('type', 'button');
     submit.setAttribute('class', 'btn btn-outline-warning btn-lg btn-block mx-auto');
     submit.setAttribute('style', 'min-width: 50%');
-    viewHighScores.setAttribute('class', 'mt-3');
-    viewHighScores.setAttribute('id', 'high-scores');
-    viewHighScores.setAttribute('style', 'color: rgb(255, 255, 255)');
+    playAgain.setAttribute('class', 'mt-3 hidden');
+    playAgain.setAttribute('id', 'high-scores');
+    
 
    //Query Select for new text input and submit button
     // let userInits = document.querySelector('#initials');
@@ -218,17 +220,23 @@ let gameOver = () => {
     //Event listener that submits user initials and scores to local storage
     submitInit.addEventListener('click', function (event){
         event.preventDefault();
-        //Object to store data
-        // var scoreStore = { 
-        //     initials: [],
-        //     score: []
-        // };
-
-        let storedScore = [JSON.parse(localStorage.getItem('user-scores'))];
-        
-        if(storedScore == null) storedScore = [];
-
         let userInits = document.querySelector('#initials').value;
+
+
+        if(userInits === ""){
+            alert('Please enter you initials')
+            return;
+        }else{
+            alert("Score recorded!");
+            form.setAttribute('class', 'hidden');
+            finalScore.textContent = 'High Scores:';
+            playAgain.setAttribute('style', 'color: rgb(255, 255, 255); visibility: visible');
+            highScores();
+        };
+
+        let storedScore = [JSON.parse(localStorage.getItem('all-scores'))];
+        if(storedScore === null) {storedScore = [];};
+
         let scoreStore = {
             "initials": userInits,
             "score": score
@@ -238,36 +246,13 @@ let gameOver = () => {
         localStorage.setItem('all-scores', JSON.stringify(storedScore));
 
         document.querySelector('#initials').value = " ";
-        alert("Score recorded!");
-        // console.log(localStorage)
         
-
-        //Convert object to string
-        // scoreStore.initials.push(userInits.value.trim());
-        // scoreStore.score.push(score);
-        
-        //Push to local storage
-        // console.log(scoreStore)
-        // localStorage.setItem('user-scores', JSON.stringify(scoreStore));
-    })
-    
+    };
 }
 
-// initials: userInits.value.trim(),
-//             score: score
+let highScores = () => {
     
-
-//After clicking view high scores
-// let hideGameOver = () => {
-    
-//     const highScoresEl = document.querySelector('p');
-//     highScoresEl.addEventListener('click', hideGameOver);
-//     questionEl.setAttribute('style', 'display: none')
-//     formEl.setAttribute('style', 'display: none')
-
-
-// }
-
+}
 
 // event listeners to start the game
 answersEl.addEventListener('click', function (event) {
@@ -276,6 +261,5 @@ answersEl.addEventListener('click', function (event) {
     showScoreTime();
     startTime();
     card1();
-    
     }
 });
