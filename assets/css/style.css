@@ -80,6 +80,9 @@ code {
     .btn-block {
         width: 80%;
     }
+    #score-time {
+        display: none;
+    }
 }
 
 /* JS logo in navbar disappears on mobile */

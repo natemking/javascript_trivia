@@ -53,6 +53,7 @@ let hideAnswers = (arr) => {
     });
 }
 
+//Remove the answer elements
 let removeAnswers = (arr) => {
     arr.forEach((eL) => {
         eL.setAttribute('style', 'display: none');
@@ -83,6 +84,7 @@ let correctAnswer = () => {
     score +=10;
     scoreEl.textContent = `Score: ${score}`;  
 }
+
 
 //If wrong answer
 let wrongAnswer = () => {
@@ -148,6 +150,7 @@ let card4 = () => {
     userChoice('#a', '#b, #c, #d', card5)
 }
 
+//Question card 5
 let card5 = () => {
     // Ask 1st question
     questionEl.innerHTML = 'Objects can contain?';
@@ -160,17 +163,52 @@ let card5 = () => {
     userChoice('#d', '#a, #b, #c', gameOver)
 }
 
+//Game over screen
 let gameOver = () => {
-    questionEl.innerHTML = 'GAME OVER';
+    questionEl.textContent = 'GAME OVER';
     hideScoreTime();
     removeAnswers(allAnswers);
+
+    //creates new elements for game over page
+    let finalScore = document.createElement("h1");
+    let form = document.createElement('form'); 
+    let div = document.createElement('div')
+    let input = document.createElement('input');
+    let submit = document.createElement('button');
+
+    //adds text to those elements
+    finalScore.textContent = `Your final score: ${score}`;
+    submit.textContent = 'Submit your score'
+    
+    //appends those elements to the DOM
+    document.querySelector('main').appendChild(finalScore);
+    document.querySelector('main').appendChild(form);
+    form.appendChild(div);
+    div.appendChild(input);
+    form.appendChild(submit);
+
+    //Sets the attributes of those elements
+    finalScore.setAttribute('style', 'color: white; font-weight: 700;')
+    finalScore.setAttribute('class', 'my-3')
+    div.setAttribute('class', 'form-group')
+    input.setAttribute('type', 'text')
+    input.setAttribute('class', 'form-control')
+    input.setAttribute('id', 'initials')
+    input.setAttribute('placeholder', 'Enter Initials')
+    input.setAttribute('style', 'width: 50%; margin: 0 auto;')
+    submit.setAttribute('id', 'submit-init')
+    submit.setAttribute('type', 'button')
+    submit.setAttribute('class', 'btn btn-outline-warning btn-lg btn-block mx-auto')
+    submit.setAttribute('style', 'min-width: 50%')
 }
 
 // event listeners to start the game
 answersEl.addEventListener('click', function (event) {
     if (event.target.matches('#a')){
-    showScoreTime();
-    startTime();
-    card1();
+    gameOver();
+    // showScoreTime();
+    // startTime();
+    // card1();
+    
     }
 });
