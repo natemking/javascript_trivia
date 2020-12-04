@@ -9,7 +9,8 @@ const aEl = document.querySelector('#a'); //Also the start button
 const bEl = document.querySelector('#b');
 const cEl = document.querySelector('#c');
 const dEl = document.querySelector('#d');
-const startEl = document.querySelector('#start');
+
+let currentQuestion = 0;
 
 const questions = [
     {
@@ -46,6 +47,11 @@ let score = 0;
 //Variable for countdown
 let countdown = 60;
 
+
+
+//Make score and timer visible
+
+
 // Timer function
 let startTime = () => {
     let timer = setInterval(function(){
@@ -63,23 +69,6 @@ let startTime = () => {
     }, 1000);
 }
 
-//Make score and timer visible
-let showScoreTime = () =>{
-    scoreTimeEl.setAttribute('style', 'visibility: visible');
-}
-//Make score and timer invisible 
-let hideScoreTime = () =>{
-    scoreTimeEl.setAttribute('style', 'visibility: hidden');
-}
-
-let writeScore = () => {
-    if (score < 10){
-        scoreEl.textContent = `Score: 0${score}`;
-    }else{
-        scoreEl.textContent = `Score: ${score}`;
-    }
-}
-
 //Show all answers visible
 let showAnswers = (arr) => {
     arr.forEach((eL) => {
@@ -87,70 +76,46 @@ let showAnswers = (arr) => {
     });
 }
 
-//Hide all answers visible
-let hideAnswers = (arr) => {
-    arr.forEach((eL) => {
-        eL.setAttribute('style', 'visibility: hidden');
-    });
+const setQuestionElements = () => {
+    if (currentQuestion === 0){
+        // startTime();
+        // showScoreTime();
+        // // showAnswers(allAnswers);
+        // setQuestionElements();
+        rulesEl.textContent = ' ';
+    }
+
+    console.log(questions)
+    console.log(currentQuestion)
+    questionEl.textContent = questions[currentQuestion].question;
+    aEl.textContent = questions[currentQuestion].choices[0];
+    bEl.textContent = questions[currentQuestion].choices[1];
+    cEl.textContent = questions[currentQuestion].choices[2];
+    dEl.textContent = questions[currentQuestion].choices[3];
+    currentQuestion++;
 }
 
-//Remove the answer elements
-let removeAnswers = (arr) => {
-    arr.forEach((eL) => {
-        eL.setAttribute('style', 'display: none');
-    });
-}
+// event listeners to start the game
+// answersEl.addEventListener('click', function (event) {
+//     if (event.target.matches('#a')){
+//         startTime();
+//         showScoreTime();
+//         showAnswers(allAnswers);
+//         setQuestionElements();
+//         rulesEl.textContent = ' ';
 
-let correctAnswer = () => {
-    hideAnswers(allAnswers);
-    questionEl.textContent = 'Correct!';
-    score += 10;
-    writeScore();
-    i++
-    setTimeout(quizz(), 700);
-}
+//         answersEl.removeEventListener('click', )
+//     }
+// });
 
-let wrongAnswer = () => {
-    score -= 10;
-    // countdown -= 10;
-    hideAnswers(allAnswers);
-    questionEl.textContent = 'Wrong!';
-    
-    writeScore();
-    i++
-    setTimeout(quizz(), 700);
-}
+const questionListBtns = document.querySelectorAll('.question-list .btn');
+questionListBtns.forEach(function (btn){
+    btn.addEventListener('click', function (event) {
+        //on click of a,b, c. or d
 
-answersEl.addEventListener('click', function (event){
-    console.log(event.target)
-    if(event.target.textContent === questions[i].answer){
-        console.log("yay")
-        correctAnswer();
-    // If the chosen answer is wrong show Wrong on screen remove 10 points & 10 seconds
-    }else if(event.target.textContent !== questions[i].answer){
-        console.log('nay')
-        wrongAnswer();
-    } 
+        //call set questionelements
+       
+        setQuestionElements();
+      });
 })
 
-let i = 0;
-const quizz = () => {
-    showAnswers(allAnswers);
-    questionEl.textContent = questions[i].question;
-    aEl.textContent = questions[i].choices[0];
-    bEl.textContent = questions[i].choices[1];
-    cEl.textContent = questions[i].choices[2];
-    dEl.textContent = questions[i].choices[3];
-}
-
-
-
-answersEl.addEventListener('click', function (event) {
-    if (event.target.matches('#start')){
-    startEl.setAttribute('style', 'display: none');
-    rulesEl.textContent = ' ';
-    showScoreTime();
-    startTime();
-    quizz();
-    }
-});

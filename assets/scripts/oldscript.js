@@ -9,7 +9,7 @@ const aEl = document.querySelector('#a'); //Also the start button
 const bEl = document.querySelector('#b');
 const cEl = document.querySelector('#c');
 const dEl = document.querySelector('#d');
-
+const startEl = document.querySelector('#start');
 
 
 
@@ -92,17 +92,15 @@ let userChoice = (right, w1, w2, w3, nextCard) => {
 
 
 
-
 // function test() {
 //     answersEl.removeEventListener('click', userChoice)
 //     console.log(event.target)
 // }
 
 let writeScore = () => {
-    if (score === 0){
+    if (score < 10){
         scoreEl.textContent = `Score: 0${score}`;
     }else{
-
         scoreEl.textContent = `Score: ${score}`;
     }
 }
@@ -284,28 +282,29 @@ let gameOver = () => {
         
     });
 }
-var userScores = {
-    'initials': userInits,
-    'score': score
-}
+// var userScores = {
+//     'initials': userInits,
+//     'score': score
+// }
 
-let showScores = () => {
-    var storedScores = JSON.stringify(localStorage.getItem('user-scores'))
-    if(storedScores) {
-        userScores = storedScores;
-    }
-}
+// let showScores = () => {
+//     var storedScores = JSON.stringify(localStorage.getItem('user-scores'))
+//     if(storedScores) {
+//         userScores = storedScores;
+//     }
+// }
 
-let storeScores = () => {
-    localStorage.setItem('user-scores', JSON.stringify(userScores))
-} 
+// let storeScores = () => {
+//     localStorage.setItem('user-scores', JSON.stringify(userScores))
+// } 
 
 // event listeners to start the game
 answersEl.addEventListener('click', function (event) {
-    if (event.target.matches('#a')){
-    gameOver();
-    // showScoreTime();
-    // startTime();
-    // card1();
+    if (event.target.matches('#start')){
+    // gameOver();
+    startEl.setAttribute('style', 'display: none')
+    showScoreTime();
+    startTime();
+    card1();
     }
 });

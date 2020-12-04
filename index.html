@@ -40,9 +40,12 @@
     <main class="jumbotron container-sm text-center py-3 py-md-5 my-2">
         <h2 id="question">~TRIVIA TIME~</h2>
         <p id="rules">Test your JavaScript skills. Answer all the multiple choice questions within the given time. Wrong answers will hurt your score/time. </p>
-        <ul id="answers" class="list-unstyled text-lg-center">
+        <ul id="answers" class="list-unstyled text-lg-center question-list">
             <li>
-                <button id="a" type="button" class="btn btn-outline-warning btn-lg btn-block mx-auto my-4">Start</button>
+                <button id="start" type="button" class="btn btn-outline-warning btn-lg btn-block mx-auto my-4">Start</button>
+            </li>
+            <li>
+                <button id="a" type="button" class="btn btn-outline-warning btn-lg btn-block mx-auto my-4 hidden"></button>
             </li>
             <li>
                 <button id="b" type="button" class="btn btn-outline-warning btn-lg btn-block mx-auto my-4 hidden"></button>
