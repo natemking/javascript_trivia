@@ -57,23 +57,25 @@ let startTime = () => {
             timerEl.textContent = `Timer: ${countdown}`;
         }
         //Stops timer at 0
-        if (countdown === 0){
+        if (countdown <= 0){
             clearInterval(timer);
+            gameOver();
         }
     }, 1000);
 }
 
 //Make score and timer visible
-let showScoreTime = () =>{
+const showScoreTime = () =>{
     scoreTimeEl.setAttribute('style', 'visibility: visible');
 }
 //Make score and timer invisible 
-let hideScoreTime = () =>{
+const hideScoreTime = () =>{
     scoreTimeEl.setAttribute('style', 'visibility: hidden');
 }
 
-let writeScore = () => {
-    if (score < 10){
+//Writes score to screen
+const writeScore = () => {
+    if (score === 0){
         scoreEl.textContent = `Score: 0${score}`;
     }else{
         scoreEl.textContent = `Score: ${score}`;
@@ -81,58 +83,48 @@ let writeScore = () => {
 }
 
 //Show all answers visible
-let showAnswers = (arr) => {
+const showAnswers = (arr) => {
     arr.forEach((eL) => {
         eL.setAttribute('style', 'visibility: visible');
     });
 }
 
 //Hide all answers visible
-let hideAnswers = (arr) => {
+const hideAnswers = (arr) => {
     arr.forEach((eL) => {
         eL.setAttribute('style', 'visibility: hidden');
     });
 }
 
 //Remove the answer elements
-let removeAnswers = (arr) => {
+const removeAnswers = (arr) => {
     arr.forEach((eL) => {
         eL.setAttribute('style', 'display: none');
     });
 }
 
-let correctAnswer = () => {
+//When a correct answer is chosen
+const correctAnswer = () => {
     hideAnswers(allAnswers);
     questionEl.textContent = 'Correct!';
     score += 10;
     writeScore();
     i++
-    setTimeout(quizz(), 700);
+    setTimeout(quizz, 700);
 }
 
-let wrongAnswer = () => {
-    score -= 10;
-    // countdown -= 10;
+//When a wrong answer is chosen
+const wrongAnswer = () => {
     hideAnswers(allAnswers);
     questionEl.textContent = 'Wrong!';
-    
+    score -= 10;
+    countdown -= 10;
     writeScore();
     i++
-    setTimeout(quizz(), 700);
+    setTimeout(quizz, 700);
 }
 
-answersEl.addEventListener('click', function (event){
-    console.log(event.target)
-    if(event.target.textContent === questions[i].answer){
-        console.log("yay")
-        correctAnswer();
-    // If the chosen answer is wrong show Wrong on screen remove 10 points & 10 seconds
-    }else if(event.target.textContent !== questions[i].answer){
-        console.log('nay')
-        wrongAnswer();
-    } 
-})
-
+//Controls what populates in the questions
 let i = 0;
 const quizz = () => {
     showAnswers(allAnswers);
@@ -143,14 +135,116 @@ const quizz = () => {
     dEl.textContent = questions[i].choices[3];
 }
 
+//Game over screen
+let gameOver = () => {
+
+    if (countdown <= 0){
+        questionEl.innerHTML = "Times Up! <br> GAME OVER"
+    }else{
+        questionEl.textContent = 'GAME OVER';
+    }
+
+    // questionEl.textContent = 'GAME OVER';
+    hideScoreTime();
+    removeAnswers(allAnswers);
+
+    //creates new elements for game over page
+    let finalScore = document.createElement("h1");
+    let form = document.createElement('form'); 
+    let div = document.createElement('div');
+    let input = document.createElement('input');
+    let submit = document.createElement('button');
+    let playAgain = document.createElement('p');
+
+    //adds text to those elements
+    finalScore.textContent = `Your final score: ${score}`;
+    submit.textContent = 'Submit your score';
+    playAgain.textContent = 'Play Again';
+    
+    //appends those elements to the DOM
+    document.querySelector('main').appendChild(finalScore);
+    document.querySelector('main').appendChild(form);
+    form.appendChild(div);
+    div.appendChild(input);
+    form.appendChild(submit);
+    document.querySelector('main').appendChild(playAgain);
+
+    //Sets the attributes of those elements
+    finalScore.setAttribute('style', 'color: white; font-weight: 700;');
+    finalScore.setAttribute('class', 'my-3');
+    form.setAttribute ('id', 'game-over-form');
+    div.setAttribute('class', 'form-group');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'user-initials');
+    input.setAttribute('class', 'form-control');
+    input.setAttribute('id', 'initials');
+    input.setAttribute('placeholder', 'Enter Initials');
+    input.setAttribute('style', 'width: 50%; margin: 0 auto;');
+    submit.setAttribute('id', 'submit-init');
+    submit.setAttribute('type', 'button');
+    submit.setAttribute('class', 'btn btn-outline-warning btn-lg btn-block mx-auto');
+    submit.setAttribute('style', 'min-width: 50%');
+    playAgain.setAttribute('class', 'mt-3 hidden');
+    playAgain.setAttribute('id', 'high-scores');
 
 
-answersEl.addEventListener('click', function (event) {
+   //Query Select for new text input and submit button
+    // let userInits = document.querySelector('#initials');
+    let submitInit = document.querySelector('#submit-init');
+    
+    //Event listener that submits user initials and scores to local storage
+    submitInit.addEventListener('click', function (event){
+        event.preventDefault();
+        let userInits = document.querySelector('#initials').value;
+
+        //If the user submits without initials they are alerted to do so
+        if(userInits === ""){
+            alert('Please enter you initials')
+            return;
+        //If the user adds initials they are alerted that the score is recorded and layout changes      
+        }else{
+            alert("Score recorded!");
+            form.setAttribute('class', 'hidden');
+            finalScore.textContent = 'High Scores:';
+            playAgain.setAttribute('style', 'color: rgb(255, 255, 255); visibility: visible');
+            storeScores();
+        };
+
+        //local storage addtion of
+        // let storedScore = [JSON.parse(localStorage.getItem('all-scores'))];
+        // if(storedScore === null) {storedScore = [];};
+
+        // let scoreStore = {
+        //     "initials": userInits,
+        //     "score": score
+        // };
+        // localStorage.setItem('user-scores', JSON.stringify(scoreStore));
+        // storedScore.push(scoreStore);
+        // localStorage.setItem('all-scores', JSON.stringify(storedScore));
+
+        // document.querySelector('#initials').value = " ";
+        
+    });
+}
+
+//*** Event Listeners ***//
+//Starts quizz
+startEl.addEventListener('click', function (event) {
     if (event.target.matches('#start')){
-    startEl.setAttribute('style', 'display: none');
+    // gameOver();
+    startEl.setAttribute('style', 'display: none')
     rulesEl.textContent = ' ';
     showScoreTime();
     startTime();
     quizz();
     }
 });
+//Listens for answers click
+answersEl.addEventListener('click', function (event){
+    if(event.target.textContent === questions[i].answer){
+        correctAnswer();
+    // If the chosen answer is wrong show Wrong on screen remove 10 points & 10 seconds
+    }else if(event.target.textContent !== questions[i].answer){
+        wrongAnswer();
+    } 
+})
