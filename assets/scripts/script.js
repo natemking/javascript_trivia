@@ -37,9 +37,39 @@ const questions = [
         choices: ['strings', 'arrays', 'booleans', 'all of the above'],
         answer: 'all of the above',
     },
+    {
+        question: 'Which operator means or?',
+        choices: ['&&', '===', '||', '+='],
+        answer: '||',
+    },
+    {
+        question: 'Array indexes start at what number?',
+        choices: ['-1', '0', '1', '10'],
+        answer: '0',
+    },
+    {
+        question: 'Which math object allows you to round down?',
+        choices: ['Math.pow()', 'Math.ceil()', 'Math.min()', 'Math.floor'],
+        answer: 'Math.floor',
+    },
+    {
+        question: 'True and False are examples of?',
+        choices: ['strings', 'arrays', 'booleans', 'none of the above'],
+        answer: 'booleans',
+    },
+    {
+        question: 'What statement stops the execution of a Function?',
+        choices: ['stop', 'over', 'leave', 'return'],
+        answer: 'return',
+    },
+    {
+        question: 'Key:value pairs are properties of a?',
+        choices: ['object', 'array', 'string', 'none of the above'],
+        answer: 'object',
+    },
 ];
 
-
+//Array for show/hide/remove answer
 const allAnswers = [aEl, bEl, cEl, dEl];
 //Storage Variable for score
 let score = 0;
@@ -59,7 +89,6 @@ let startTime = () => {
         //Stops timer at 0
         if (countdown <= 0){
             clearInterval(timer);
-            gameOver();
         }
     }, 1000);
 }
@@ -110,7 +139,7 @@ const correctAnswer = () => {
     score += 10;
     writeScore();
     i++
-    setTimeout(quizz, 700);
+    nextMove();
 }
 
 //When a wrong answer is chosen
@@ -121,7 +150,7 @@ const wrongAnswer = () => {
     countdown -= 10;
     writeScore();
     i++
-    setTimeout(quizz, 700);
+    nextMove();
 }
 
 //Controls what populates in the questions
@@ -135,18 +164,28 @@ const quizz = () => {
     dEl.textContent = questions[i].choices[3];
 }
 
+
+//Triggers next round or end of game
+const nextMove = () => {
+    if (i < 10 && countdown > 0){
+        setTimeout(quizz, 700);
+    }else if (i == 10 || countdown <= 0){
+        hideAnswers(allAnswers);
+        gameOver()
+    }
+}
+
 //Game over screen
 let gameOver = () => {
 
+    //Clear screen content and add game over message
+    hideScoreTime();
+    removeAnswers(allAnswers);
     if (countdown <= 0){
         questionEl.innerHTML = "Times Up! <br> GAME OVER"
     }else{
         questionEl.textContent = 'GAME OVER';
     }
-
-    // questionEl.textContent = 'GAME OVER';
-    hideScoreTime();
-    removeAnswers(allAnswers);
 
     //creates new elements for game over page
     let finalScore = document.createElement("h1");
