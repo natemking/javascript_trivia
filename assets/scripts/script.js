@@ -1,3 +1,4 @@
+//QuerySelectors of HTML elements for dynamics
 const timerEl = document.querySelector('#timer');
 const scoreEl = document.querySelector('#score')
 const scoreTimeEl = document.querySelector('#score-time')
@@ -12,6 +13,7 @@ const dEl = document.querySelector('#d');
 const startEl = document.querySelector('#start');
 const tableEl = document.querySelector('#score-table')
 
+//Array that houses the Q & A's
 const questions = [
     {
         question: 'What does "var" stand for?',
@@ -70,12 +72,10 @@ const questions = [
     },
 ];
 
-//Array for show/hide/remove answer
-const allAnswers = [aEl, bEl, cEl, dEl];
+
+
 //Storage Variable for score
 let score = 0;
-//Variable for countdown
-let countdown = 60;
 
 // Timer function
 let startTime = () => {
@@ -84,7 +84,7 @@ let startTime = () => {
         //Adds visual of timer to the dom. 
         if (countdown < 10){
             timerEl.textContent = `Timer: 0${countdown}`;
-            timerEl.setAttribute('style', 'color: yellow; font-size: 25px;')
+            timerEl.setAttribute('style', 'color: red; font-size: 25px;')
         }else{
             timerEl.textContent = `Timer: ${countdown}`;
         }
@@ -94,6 +94,9 @@ let startTime = () => {
         }
     }, 1000);
 }
+
+//Variable for countdown
+let countdown = 60;
 
 //Make score and timer visible
 const showScoreTime = () =>{
@@ -112,6 +115,9 @@ const writeScore = () => {
         scoreEl.textContent = `Score: ${score}`;
     }
 }
+
+//Array for show/hide/remove answer functions
+const allAnswers = [aEl, bEl, cEl, dEl];
 
 //Show all answers visible
 const showAnswers = (arr) => {
@@ -155,7 +161,7 @@ const wrongAnswer = () => {
     nextMove();
 }
 
-//Controls what populates in the questions
+//Controls what populates in the Q & A's
 let i = 0;
 const quizz = () => {
     showAnswers(allAnswers);
@@ -165,7 +171,6 @@ const quizz = () => {
     cEl.textContent = questions[i].choices[2];
     dEl.textContent = questions[i].choices[3];
 }
-
 
 //Triggers next round or end of game
 const nextMove = () => {
@@ -203,8 +208,6 @@ let gameOver = () => {
     playAgain.textContent = 'Play Again';
     
     //appends those elements to the DOM
-    
-
     mainEl.insertBefore(finalScore, mainEl.childNodes[2]);
     mainEl.appendChild(form);
     form.appendChild(div);
@@ -230,7 +233,6 @@ let gameOver = () => {
     playAgain.setAttribute('class', 'mt-3 hidden');
     playAgain.setAttribute('id', 'scores');
 
-    
     //Event listener that trigger highScore function on click
     submit.addEventListener('click', function (event){
         event.preventDefault();
@@ -242,8 +244,10 @@ let gameOver = () => {
         location.reload();
     })
 
+    //Function for storing and appending scores to DOM
     let scores = () => {
 
+        //Table cell query selectors
         i1 = document.querySelector('#i1');
         s1 = document.querySelector('#s1');
         i2 = document.querySelector('#i2');
@@ -254,11 +258,11 @@ let gameOver = () => {
         s4 = document.querySelector('#s4');
         i5 = document.querySelector('#i5');
         s5 = document.querySelector('#s5');
+        let userInits = document.querySelector('#initials').value;
 
+        //Arrays for for loops to publish inits and scores
         iArr = [i1, i2, i3, i4, i5]
         sArr = [s1, s2, s3, s4, s5]
-
-        let userInits = document.querySelector('#initials').value;
 
         //If the user submits without initials they are alerted to do so
         if(userInits === ""){
@@ -275,7 +279,7 @@ let gameOver = () => {
         playAgain.setAttribute('style', 'color: rgb(255, 255, 255); visibility: visible');
         tableEl.setAttribute('style', 'display: revert')
 
-        // local storage addition of
+        //Local storage pull of scores. Removes the first index if the array is >=5 
         let storedScore = JSON.parse(localStorage.getItem('all-scores'));
         if(storedScore === null) {
             storedScore = [];
@@ -283,35 +287,30 @@ let gameOver = () => {
             storedScore.shift();
         }
         
-       
-
-        console.log(storedScore);
+       //Object to store user inits & score
         let scoreStore = {
             "initials": userInits,
             "score": score
         };
+
+        //Pushes users current intis & score to local storage array
         storedScore.push(scoreStore);
 
+        //Writes the user intits & score array to local storage
         localStorage.setItem('all-scores', JSON.stringify(storedScore));
 
-        
+        //loops that itterate the users stored inits & scores then writes to the table cells
         for(let i = 0; i < storedScore.length; i++){
         iArr[i].textContent = storedScore[i].initials;
         }
         for(let i = 0; i < storedScore.length; i++){
         sArr[i].textContent = storedScore[i].score;
         }
-    
-       
-        
-        console.log(storedScore);
     }
 }
 
-
-
 //*** Event Listeners ***//
-//Starts quizz
+//Starts quiz
 startEl.addEventListener('click', function (event) {
     if (event.target.matches('#start')){
     startEl.setAttribute('style', 'display: none')
