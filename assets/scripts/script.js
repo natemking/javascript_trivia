@@ -27,12 +27,12 @@ const questions = [
     },
     {
         question: 'An Array is surrounded by?',
-        choices: ['parentheses', 'brackets', 'curly brackets', 'quotes'] ,
+        choices: ['parentheses', 'brackets', 'curly brackets', 'quotes'],
         answer: 'brackets',
     },
     {
         question: '% is called a what?',
-        choices: ['modulus', 'function', 'iterator', 'boolean'] ,
+        choices: ['modulus', 'function', 'iterator', 'boolean'],
         answer: 'modulus',
     },
     {
@@ -79,17 +79,17 @@ let score = 0;
 
 // Timer function
 let startTime = () => {
-    let timer = setInterval(function(){
+    let timer = setInterval(function () {
         countdown--;
         //Adds visual of timer to the dom. 
-        if (countdown < 10){
+        if (countdown < 10) {
             timerEl.textContent = `Timer: 0${countdown}`;
             timerEl.setAttribute('style', 'color: red; font-size: 25px;')
-        }else{
+        } else {
             timerEl.textContent = `Timer: ${countdown}`;
         }
         //Stops timer at 0
-        if (countdown <= 0){
+        if (countdown <= 0) {
             clearInterval(timer);
         }
     }, 1000);
@@ -99,19 +99,19 @@ let startTime = () => {
 let countdown = 60;
 
 //Make score and timer visible
-const showScoreTime = () =>{
+const showScoreTime = () => {
     scoreTimeEl.setAttribute('style', 'display: block;');
 }
 //Make score and timer invisible 
-const hideScoreTime = () =>{
+const hideScoreTime = () => {
     scoreTimeEl.setAttribute('style', 'display: none;');
 }
 
 //Writes score to screen
 const writeScore = () => {
-    if (score === 0){
+    if (score === 0) {
         scoreEl.textContent = `Score: 0${score}`;
-    }else{
+    } else {
         scoreEl.textContent = `Score: ${score}`;
     }
 }
@@ -174,9 +174,9 @@ const quizz = () => {
 
 //Triggers next round or end of game
 const nextMove = () => {
-    if (i < 10 && countdown > 0){
+    if (i < 10 && countdown > 0) {
         setTimeout(quizz, 700);
-    }else if (i === 10 || countdown <= 0){
+    } else if (i === 10 || countdown <= 0) {
         hideAnswers(allAnswers);
         gameOver();
     }
@@ -188,15 +188,15 @@ let gameOver = () => {
     //Clear screen content and add game over message
     hideScoreTime();
     removeAnswers(allAnswers);
-    if (countdown <= 0){
+    if (countdown <= 0) {
         questionEl.innerHTML = "Times Up! <br> GAME OVER"
-    }else{
+    } else {
         questionEl.textContent = 'GAME OVER';
     }
 
     //creates new elements for game over page
     let finalScore = document.createElement('h1');
-    let form = document.createElement('form'); 
+    let form = document.createElement('form');
     let div = document.createElement('div');
     let input = document.createElement('input');
     let submit = document.createElement('button');
@@ -206,7 +206,7 @@ let gameOver = () => {
     finalScore.textContent = `Your final score: ${score}`;
     submit.textContent = 'Submit your score';
     playAgain.textContent = 'Play Again';
-    
+
     //appends those elements to the DOM
     mainEl.insertBefore(finalScore, mainEl.childNodes[2]);
     mainEl.appendChild(form);
@@ -218,7 +218,7 @@ let gameOver = () => {
     //Sets the attributes of those elements
     finalScore.setAttribute('style', 'color: white; font-weight: 700;');
     finalScore.setAttribute('class', 'my-3');
-    form.setAttribute ('id', 'game-over-form');
+    form.setAttribute('id', 'game-over-form');
     div.setAttribute('class', 'form-group');
     input.setAttribute('type', 'text');
     input.setAttribute('name', 'user-initials');
@@ -234,13 +234,13 @@ let gameOver = () => {
     playAgain.setAttribute('id', 'scores');
 
     //Event listener that trigger highScore function on click
-    submit.addEventListener('click', function (event){
+    submit.addEventListener('click', function (event) {
         event.preventDefault();
         scores();
     })
 
     //Event listener to refresh the page when play again is clicked
-    playAgain.addEventListener('click', function(){
+    playAgain.addEventListener('click', function () {
         location.reload();
     })
 
@@ -265,13 +265,13 @@ let gameOver = () => {
         sArr = [s1, s2, s3, s4, s5]
 
         //If the user submits without initials they are alerted to do so
-        if(userInits === ""){
+        if (userInits === "") {
             alert('Please enter you initials')
             return;
-        //If the user adds initials they are alerted that the score is recorded and layout changes      
-        }else{
+            //If the user adds initials they are alerted that the score is recorded and layout changes      
+        } else {
             alert("Score recorded!");
-            
+
         };
 
         form.setAttribute('style', 'display:none');
@@ -281,13 +281,13 @@ let gameOver = () => {
 
         //Local storage pull of scores. Removes the first index if the array is >=5 
         let storedScore = JSON.parse(localStorage.getItem('all-scores'));
-        if(storedScore === null) {
+        if (storedScore === null) {
             storedScore = [];
-        }else if(storedScore.length >= 5){
+        } else if (storedScore.length >= 5) {
             storedScore.shift();
         }
-        
-       //Object to store user inits & score
+
+        //Object to store user inits & score
         let scoreStore = {
             "initials": userInits,
             "score": score
@@ -300,11 +300,11 @@ let gameOver = () => {
         localStorage.setItem('all-scores', JSON.stringify(storedScore));
 
         //loops that itterate the users stored inits & scores then writes to the table cells
-        for(let i = 0; i < storedScore.length; i++){
-        iArr[i].textContent = storedScore[i].initials;
+        for (let i = 0; i < storedScore.length; i++) {
+            iArr[i].textContent = storedScore[i].initials;
         }
-        for(let i = 0; i < storedScore.length; i++){
-        sArr[i].textContent = storedScore[i].score;
+        for (let i = 0; i < storedScore.length; i++) {
+            sArr[i].textContent = storedScore[i].score;
         }
     }
 }
@@ -312,20 +312,20 @@ let gameOver = () => {
 //*** Event Listeners ***//
 //Starts quiz
 startEl.addEventListener('click', function (event) {
-    if (event.target.matches('#start')){
-    startEl.setAttribute('style', 'display: none')
-    rulesEl.textContent = ' ';
-    showScoreTime();
-    startTime();
-    quizz();
+    if (event.target.matches('#start')) {
+        startEl.setAttribute('style', 'display: none')
+        rulesEl.textContent = ' ';
+        showScoreTime();
+        startTime();
+        quizz();
     }
 });
 //Listens for answers click
-answersEl.addEventListener('click', function (event){
-    if(event.target.textContent === questions[i].answer){
+answersEl.addEventListener('click', function (event) {
+    if (event.target.textContent === questions[i].answer) {
         correctAnswer();
-    // If the chosen answer is wrong show Wrong on screen remove 10 points & 10 seconds
-    }else if(event.target.textContent !== questions[i].answer){
+        // If the chosen answer is wrong show Wrong on screen remove 10 points & 10 seconds
+    } else if (event.target.textContent !== questions[i].answer) {
         wrongAnswer();
-    } 
+    }
 })
