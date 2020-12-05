@@ -1,7 +1,7 @@
 const timerEl = document.querySelector('#timer');
 const scoreEl = document.querySelector('#score')
 const scoreTimeEl = document.querySelector('#score-time')
-const mainEl = document.querySelectorAll('main');
+const mainEl = document.querySelector('main');
 const rulesEl = document.querySelector('#rules');
 const questionEl = document.querySelector('#question');
 const answersEl = document.querySelector('#answers')
@@ -10,6 +10,7 @@ const bEl = document.querySelector('#b');
 const cEl = document.querySelector('#c');
 const dEl = document.querySelector('#d');
 const startEl = document.querySelector('#start');
+const tableEl = document.querySelector('#score-table')
 
 const questions = [
     {
@@ -49,8 +50,8 @@ const questions = [
     },
     {
         question: 'Which math object allows you to round down?',
-        choices: ['Math.pow()', 'Math.ceil()', 'Math.min()', 'Math.floor'],
-        answer: 'Math.floor',
+        choices: ['Math.pow()', 'Math.ceil()', 'Math.min()', 'Math.floor()'],
+        answer: 'Math.floor()',
     },
     {
         question: 'True and False are examples of?',
@@ -83,23 +84,25 @@ let startTime = () => {
         //Adds visual of timer to the dom. 
         if (countdown < 10){
             timerEl.textContent = `Timer: 0${countdown}`;
+            timerEl.setAttribute('style', 'color: yellow; font-size: 25px;')
         }else{
             timerEl.textContent = `Timer: ${countdown}`;
         }
         //Stops timer at 0
         if (countdown <= 0){
             clearInterval(timer);
+            gameOver();
         }
     }, 1000);
 }
 
 //Make score and timer visible
 const showScoreTime = () =>{
-    scoreTimeEl.setAttribute('style', 'visibility: visible');
+    scoreTimeEl.setAttribute('style', 'display: block;');
 }
 //Make score and timer invisible 
 const hideScoreTime = () =>{
-    scoreTimeEl.setAttribute('style', 'visibility: hidden');
+    scoreTimeEl.setAttribute('style', 'display: none;');
 }
 
 //Writes score to screen
@@ -169,9 +172,9 @@ const quizz = () => {
 const nextMove = () => {
     if (i < 10 && countdown > 0){
         setTimeout(quizz, 700);
-    }else if (i == 10 || countdown <= 0){
+    }else if (i === 10 || countdown <= 0){
         hideAnswers(allAnswers);
-        gameOver()
+        gameOver();
     }
 }
 
@@ -188,7 +191,7 @@ let gameOver = () => {
     }
 
     //creates new elements for game over page
-    let finalScore = document.createElement("h1");
+    let finalScore = document.createElement('h1');
     let form = document.createElement('form'); 
     let div = document.createElement('div');
     let input = document.createElement('input');
@@ -201,12 +204,14 @@ let gameOver = () => {
     playAgain.textContent = 'Play Again';
     
     //appends those elements to the DOM
-    document.querySelector('main').appendChild(finalScore);
-    document.querySelector('main').appendChild(form);
+    
+
+    mainEl.insertBefore(finalScore, mainEl.childNodes[2]);
+    mainEl.appendChild(form);
     form.appendChild(div);
     div.appendChild(input);
     form.appendChild(submit);
-    document.querySelector('main').appendChild(playAgain);
+    mainEl.appendChild(playAgain);
 
     //Sets the attributes of those elements
     finalScore.setAttribute('style', 'color: white; font-weight: 700;');
@@ -224,16 +229,36 @@ let gameOver = () => {
     submit.setAttribute('class', 'btn btn-outline-warning btn-lg btn-block mx-auto');
     submit.setAttribute('style', 'min-width: 50%');
     playAgain.setAttribute('class', 'mt-3 hidden');
-    playAgain.setAttribute('id', 'high-scores');
+    playAgain.setAttribute('id', 'scores');
 
-
-   //Query Select for new text input and submit button
-    // let userInits = document.querySelector('#initials');
-    let submitInit = document.querySelector('#submit-init');
     
-    //Event listener that submits user initials and scores to local storage
-    submitInit.addEventListener('click', function (event){
+    //Event listener that trigger highScore function on click
+    submit.addEventListener('click', function (event){
         event.preventDefault();
+        scores();
+    })
+
+    //Event listener to refresh the page when play again is clicked
+    playAgain.addEventListener('click', function(){
+        location.reload();
+    })
+
+    let scores = () => {
+
+        i1 = document.querySelector('#i1');
+        s1 = document.querySelector('#s1');
+        i2 = document.querySelector('#i2');
+        s2 = document.querySelector('#s2');
+        i3 = document.querySelector('#i3');
+        s3 = document.querySelector('#s3');
+        i4 = document.querySelector('#i4');
+        s4 = document.querySelector('#s4');
+        i5 = document.querySelector('#i5');
+        s5 = document.querySelector('#s5');
+
+        iArr = [i1, i2, i3, i4, i5]
+        sArr = [s1, s2, s3, s4, s5]
+
         let userInits = document.querySelector('#initials').value;
 
         //If the user submits without initials they are alerted to do so
@@ -243,34 +268,53 @@ let gameOver = () => {
         //If the user adds initials they are alerted that the score is recorded and layout changes      
         }else{
             alert("Score recorded!");
-            form.setAttribute('class', 'hidden');
-            finalScore.textContent = 'High Scores:';
-            playAgain.setAttribute('style', 'color: rgb(255, 255, 255); visibility: visible');
-            storeScores();
+            
         };
 
-        //local storage addtion of
-        // let storedScore = [JSON.parse(localStorage.getItem('all-scores'))];
-        // if(storedScore === null) {storedScore = [];};
+        form.setAttribute('style', 'display:none');
+        finalScore.textContent = 'Your Scores';
+        playAgain.setAttribute('style', 'color: rgb(255, 255, 255); visibility: visible');
+        tableEl.setAttribute('style', 'display: revert')
 
-        // let scoreStore = {
-        //     "initials": userInits,
-        //     "score": score
-        // };
-        // localStorage.setItem('user-scores', JSON.stringify(scoreStore));
-        // storedScore.push(scoreStore);
-        // localStorage.setItem('all-scores', JSON.stringify(storedScore));
-
-        // document.querySelector('#initials').value = " ";
+        // local storage addition of
+        let storedScore = JSON.parse(localStorage.getItem('all-scores'));
+        if(storedScore === null) {
+            storedScore = [];
+        }else if(storedScore.length >= 5){
+            storedScore.shift();
+        }
         
-    });
+       
+
+        console.log(storedScore);
+        let scoreStore = {
+            "initials": userInits,
+            "score": score
+        };
+        storedScore.push(scoreStore);
+
+        localStorage.setItem('all-scores', JSON.stringify(storedScore));
+
+        
+        for(let i = 0; i < storedScore.length; i++){
+        iArr[i].textContent = storedScore[i].initials;
+        }
+        for(let i = 0; i < storedScore.length; i++){
+        sArr[i].textContent = storedScore[i].score;
+        }
+    
+       
+        
+        console.log(storedScore);
+    }
 }
+
+
 
 //*** Event Listeners ***//
 //Starts quizz
 startEl.addEventListener('click', function (event) {
     if (event.target.matches('#start')){
-    // gameOver();
     startEl.setAttribute('style', 'display: none')
     rulesEl.textContent = ' ';
     showScoreTime();

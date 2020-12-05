@@ -38,3 +38,5 @@ https://www.sitepoint.com/javascript-settimeout-function-examples/ -->
 
 <!-- using a foreach
 https://dmitripavlutin.com/foreach-iterate-array-javascript/ -->
+
+<!-- page refresh on click https://www.w3schools.com/jsref/met_loc_reload.asp -->

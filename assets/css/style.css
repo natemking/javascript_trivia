@@ -12,6 +12,7 @@ html, body {
 }
 #navbar {
     font-size: 1.5em;
+    opacity: .8;
 }
 
 
@@ -25,6 +26,7 @@ html, body {
 
 #score-time {
     font-family: monospace;
+    display: none;
 }
 
 .jumbotron{
@@ -46,7 +48,7 @@ code {
     font-weight: 600;
 }
 
-.btn {
+.btn, .table-dark {
     background-color: rgb(13, 18, 56);
     color: rgb(255, 255, 255);
     border: none;
@@ -68,9 +70,19 @@ code {
     visibility: visible;
 }
 
-#high-scores:hover {
+#scores:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+#score-table {
+    width: 50% ;
+    margin: 0 auto;
+}
+
+.table-dark {
+    border-radius: 10px;
+    display: none;
 }
 
 
@@ -89,7 +101,10 @@ code {
     .btn-block {
         width: 80%;
     }
-}
+    #score-table {
+        width: 90%;
+    }
+}   
 
 /* JS logo in navbar disappears on mobile */
 @media (max-width: 300px){
