@@ -91,7 +91,6 @@ let startTime = () => {
         //Stops timer at 0
         if (countdown <= 0){
             clearInterval(timer);
-            gameOver();
         }
     }, 1000);
 }

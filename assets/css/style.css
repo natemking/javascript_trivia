@@ -1,8 +1,4 @@
-
-
-/* font-family: 'Racing Sans One', cursive;
-font-family: 'Raleway', sans-serif; */
-
+/* Global */
 html, body {
     font-family: 'Raleway', sans-serif;
     background: url("../../assets/images/oriental-tiles.png");
@@ -10,6 +6,8 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
+/* Navbar */
 #navbar {
     font-size: 1.5em;
     opacity: .8;
@@ -29,6 +27,8 @@ html, body {
     display: none;
 }
 
+
+/* Main */
 .jumbotron{
     background-color:rgba(218, 165, 32, .8);
     border-radius: 10px;
