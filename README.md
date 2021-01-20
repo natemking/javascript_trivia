@@ -107,3 +107,9 @@ _mobile score screen_
 * [Using foreach](https://dmitripavlutin.com/foreach-iterate-array-javascript/)
 
 * [Page refresh on click](https://www.w3schools.com/jsref/met_loc_reload.asp)
+
+---
+
+GitHub: [@natemking](https://github.com/natemking/)
+
+Email: [natmeking@gmail.com](mailto:natmeking@gmail.com)
